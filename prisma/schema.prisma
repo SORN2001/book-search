@@ -22,7 +22,7 @@ model Book {
   isbn            String?  @unique
   keywords        String?
   coverImage      String?
-  summary         String? 
+  summary         String?  @db.Text
   categoryId      Int?
   category        Category? @relation(fields: [categoryId], references: [id])
 }

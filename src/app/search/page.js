@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
-const ITEMS_PER_PAGE = 7; // กำหนดจำนวนหนังสือต่อหน้าสำหรับการแสดงผล
+const ITEMS_PER_PAGE = 10; // กำหนดจำนวนหนังสือต่อหน้าสำหรับการแสดงผล
 
 export default function SearchPage() {
   const [books, setBooks] = useState([]); // เก็บข้อมูลหนังสือที่ได้จากการค้นหา

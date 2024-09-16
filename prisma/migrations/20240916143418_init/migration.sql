@@ -16,7 +16,7 @@ CREATE TABLE `Book` (
     `isbn` VARCHAR(191) NULL,
     `keywords` VARCHAR(191) NULL,
     `coverImage` VARCHAR(191) NULL,
-    `summary` VARCHAR(191) NULL,
+    `summary` TEXT NULL,
     `categoryId` INTEGER NULL,
 
     UNIQUE INDEX `Book_isbn_key`(`isbn`),
