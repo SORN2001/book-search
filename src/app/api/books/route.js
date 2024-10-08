@@ -81,3 +81,29 @@ export async function POST(req) {
         // ส่ง response พร้อมข้อความ error และสถานะ 500 ถ้าเกิดข้อผิดพลาดในเซิร์ฟเวอร์
     }
 }
+
+export async function DELETE(req) {
+    // ฟังก์ชัน DELETE ใช้สำหรับจัดการ HTTP DELETE requests
+    try {
+        const { searchParams } = new URL(req.url); // ดึง searchParams จาก URL ของ request
+        const id = searchParams.get('id'); // ดึง id จาก searchParams
+
+        // ตรวจสอบว่าได้รับ id หรือไม่
+        if (!id) {
+            return NextResponse.json({ error: 'Missing book ID' }, { status: 400 });
+            // ถ้าไม่ได้รับ id ให้ส่ง response พร้อมข้อความ error และสถานะ 400
+        }
+
+        // ลบหนังสือจากฐานข้อมูลตาม id ที่ระบุ
+        const deletedBook = await prisma.book.delete({
+            where: {
+                id: parseInt(id, 10), // แปลงค่า id เป็น integer
+            },
+        });
+
+        return NextResponse.json(deletedBook); // ส่งข้อมูลของหนังสือที่ถูกลบกลับไปยังผู้ใช้
+    } catch (error) {
+        console.error('Error deleting book:', error.message); // แสดงข้อความข้อผิดพลาดลงในคอนโซลถ้าเกิดข้อผิดพลาด
+        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 }); // ส่ง response พร้อมข้อความ error และสถานะ 500 ถ้าเกิดข้อผิดพลาดในเซิร์ฟเวอร์
+    }
+}

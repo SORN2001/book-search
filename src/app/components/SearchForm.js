@@ -1,8 +1,11 @@
 "use client"; // ทำให้คอมโพเนนต์นี้ทำงานในฝั่ง client
 
 import { useState } from "react";
+import { useRouter } from 'next/navigation';
 
 export default function SearchForm() {
+  // สร้างตัวแปร router
+  const router = useRouter();
   // กำหนด state สำหรับเก็บค่าตัวแปรต่างๆ ที่ใช้ในฟอร์ม
   const [query, setQuery] = useState(""); // เก็บค่าคำค้นหาจากผู้ใช้
   const [category, setCategory] = useState(""); // เก็บค่าหมวดหมู่ของหนังสือ
@@ -31,6 +34,11 @@ export default function SearchForm() {
 
     // เปลี่ยนเส้นทางไปยังหน้าผลลัพธ์การค้นหาพร้อมพารามิเตอร์การค้นหา
     window.location.href = `/search?${queryParams}`;
+  };
+
+  // ฟังก์ชันเมื่อกดปุ่มเพิ่มหนังสือ
+  const handleAddBook = () => {
+    router.push('/add-book'); // เปลี่ยนเส้นทางไปยังหน้า /add-book
   };
 
   return (
@@ -153,6 +161,15 @@ export default function SearchForm() {
             เลข ISBN
           </label>
         </div>
+      </div>
+
+      <div className="py-5 flex items-center justify-between max-w-4xl mx-auto mb-5">
+        <button
+          onClick={handleAddBook} // เพิ่ม onClick handler
+          className="text-1xl font-bold text-blue-500 hover:underline"
+        >
+          เพิ่มหนังสือ
+        </button>
       </div>
     </div>
   );
